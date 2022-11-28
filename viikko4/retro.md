@@ -9,4 +9,4 @@ Havainnot sprintistä jaetaan eri kategorioihin: glad, sad tai mad. Jokainen kir
 
 ### Start, stop, continue, more of, less of Wheel
 
-Tarkoituksena on pitää lyhyt (10-25min riippuen ryhmän koosta) keskustelu/palaute edeltävästä sprintistä hyödyntäen piirrettyä ympyrää, joka on jaettu viiteen tekniikan nimen mukaisiin osiin: start, stop, continue, more of, ja less of. Nämä osa-alueet käydään kysellen läpi ja keskustellaan esimerkiksi, mitä meidän kannattaisi aloittaa / lopettaa.
+Tarkoituksena on pitää lyhyt (10-25min riippuen ryhmän koosta) keskustelu/palaute edeltävästä sprintistä hyödyntäen piirrettyä ympyrää, joka on jaettu viiteen tekniikan nimen mukaisiin osiin: start, stop, continue, more of, ja less of. Nämä osa-alueet käydään kysellen läpi ja keskustellaan esimerkiksi, mitä meidän kannattaisi aloittaa / lopettaa. 
