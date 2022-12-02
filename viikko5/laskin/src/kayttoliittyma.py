@@ -8,11 +8,61 @@ class Komento(Enum):
     NOLLAUS = 3
     KUMOA = 4
 
+class Summa:
+    def __init__(self, sovellus, lue_syote):
+        self.sovellus = sovellus
+        self.lue_syote = lue_syote
+
+    def suorita(self):
+        self.edellinen_tila = self.sovellus.tulos
+        self.sovellus.plus(int(self.lue_syote()))
+
+class Erotus:
+    def __init__(self, sovellus, lue_syote):
+        self.sovellus = sovellus
+        self.lue_syote = lue_syote
+
+    def suorita(self):
+        self.edellinen_tila = self.sovellus.tulos
+        self.sovellus.miinus(int(self.lue_syote()))
+
+class Nollaus:
+    def __init__(self, sovellus):
+        self.sovellus = sovellus
+
+    def suorita(self):
+        self.edellinen_tila = self.sovellus.tulos
+        self.sovellus.nollaa()
+
 
 class Kayttoliittyma:
     def __init__(self, sovellus, root):
         self._sovellus = sovellus
         self._root = root
+
+        self._komennot = {
+            Komento.SUMMA: Summa(sovellus, self._lue_syote),
+            Komento.EROTUS: Erotus(sovellus, self._lue_syote),
+            Komento.NOLLAUS: Nollaus(sovellus),
+        }
+
+    def _lue_syote(self):
+        return self._syote_kentta.get()
+
+    def _suorita_komento(self, komento):
+        komento_olio = self._komennot[komento]
+        komento_olio.suorita()
+        
+        self._kumoa_painike["state"] = constants.NORMAL
+
+        if self._sovellus.tulos == 0:
+            self._nollaus_painike["state"] = constants.DISABLED
+        else:
+            self._nollaus_painike["state"] = constants.NORMAL
+
+        self._syote_kentta.delete(0, constants.END)
+        self._tulos_var.set(self._sovellus.tulos)
+
 
     def kaynnista(self):
         self._tulos_var = StringVar()
@@ -53,30 +103,3 @@ class Kayttoliittyma:
         erotus_painike.grid(row=2, column=1)
         self._nollaus_painike.grid(row=2, column=2)
         self._kumoa_painike.grid(row=2, column=3)
-
-    def _suorita_komento(self, komento):
-        arvo = 0
-
-        try:
-            arvo = int(self._syote_kentta.get())
-        except Exception:
-            pass
-
-        if komento == Komento.SUMMA:
-            self._sovellus.plus(arvo)
-        elif komento == Komento.EROTUS:
-            self._sovellus.miinus(arvo)
-        elif komento == Komento.NOLLAUS:
-            self._sovellus.nollaa()
-        elif komento == Komento.KUMOA:
-            pass
-
-        self._kumoa_painike["state"] = constants.NORMAL
-
-        if self._sovellus.tulos == 0:
-            self._nollaus_painike["state"] = constants.DISABLED
-        else:
-            self._nollaus_painike["state"] = constants.NORMAL
-
-        self._syote_kentta.delete(0, constants.END)
-        self._tulos_var.set(self._sovellus.tulos)
